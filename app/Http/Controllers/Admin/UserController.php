@@ -13,7 +13,8 @@ class UserController extends Controller
   public function create()
   {
     $roles = Role::all();
-    return view('admin.users.create', compact('roles'));
+    $employees = \App\Models\Employee::whereNull('user_id')->get();
+    return view('admin.users.create', compact('roles', 'employees'));
   }
 
   public function store(Request $request)
@@ -23,6 +24,7 @@ class UserController extends Controller
       'email' => 'required|email|unique:users',
       'password' => 'required|min:6',
       'role' => 'required|exists:roles,name',
+      'employee_id' => 'required|exists:employees,id',
     ]);
 
     $user = User::create([
@@ -32,6 +34,11 @@ class UserController extends Controller
     ]);
     $user->assignRole($request->role);
 
-    return redirect()->route('admin.users.create')->with('success', 'Usuario creado correctamente');
+    // Asignar el usuario al empleado seleccionado
+    $employee = \App\Models\Employee::find($request->employee_id);
+    $employee->user_id = $user->id;
+    $employee->save();
+
+    return redirect()->route('admin.users.create')->with('success', 'Usuario creado y asignado correctamente');
   }
 }
