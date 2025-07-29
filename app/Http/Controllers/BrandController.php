@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\BrandRequest;
+use App\Models\Brand;
 
 class BrandController extends Controller
 {
@@ -11,7 +12,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        $brands = Brand::all();
+        return view('brands.index', compact('brands'));
     }
 
     /**
@@ -19,7 +21,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        //
+        return view('brands.create');
     }
 
     /**
@@ -27,23 +29,27 @@ class BrandController extends Controller
      */
     public function store(BrandRequest $request)
     {
-        //
+        Brand::create($request->validated());
+        return redirect()->route('brands.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+
+    // public function show(string $id)
+    // {
+    //     $brand = Brand::findOrFail($id);
+    //     return view('brands.show', compact('brand'));
+    // }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        $brand = Brand::findOrFail($id);
+        return view('brands.edit', compact('brand'));
     }
 
     /**
@@ -51,7 +57,9 @@ class BrandController extends Controller
      */
     public function update(BrandRequest $request, string $id)
     {
-        //
+        $brand = Brand::findOrFail($id);
+        $brand->update($request->validated());
+        return redirect()->route('brands.index');
     }
 
     /**
@@ -59,6 +67,8 @@ class BrandController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $brand = Brand::findOrFail($id);
+        $brand->delete();
+        return redirect()->route('brands.index')->with('success', 'Marca eliminada correctamente');
     }
 }

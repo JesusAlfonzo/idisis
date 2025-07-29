@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SupplierRequest;
+use App\Models\Supplier;
 
 class SupplierController extends Controller
 {
@@ -11,7 +12,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $suppliers = Supplier::all();
+        return view('suppliers.index', compact('suppliers'));
     }
 
     /**
@@ -19,7 +21,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('suppliers.create');
     }
 
     /**
@@ -27,7 +29,8 @@ class SupplierController extends Controller
      */
     public function store(SupplierRequest $request)
     {
-        //
+        Supplier::create($request->validated());
+        return redirect()->route('suppliers.index');
     }
 
     /**
@@ -43,7 +46,8 @@ class SupplierController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+        return view('suppliers.edit', compact('supplier'));
     }
 
     /**
@@ -51,7 +55,9 @@ class SupplierController extends Controller
      */
     public function update(SupplierRequest $request, string $id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+        $supplier->update($request->validated());
+        return redirect()->route('suppliers.index');
     }
 
     /**
@@ -59,6 +65,8 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+        $supplier->delete();
+        return redirect()->route('suppliers.index')->with('success', 'Proveedor eliminado correctamente');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PresentationRequest;
+use App\Models\Presentation;
 
 class PresentationController extends Controller
 {
@@ -11,7 +12,8 @@ class PresentationController extends Controller
      */
     public function index()
     {
-        //
+        $presentations = Presentation::all();
+        return view('presentations.index', compact('presentations'));
     }
 
     /**
@@ -19,7 +21,7 @@ class PresentationController extends Controller
      */
     public function create()
     {
-        //
+        return view('presentations.create');
     }
 
     /**
@@ -27,7 +29,8 @@ class PresentationController extends Controller
      */
     public function store(PresentationRequest $request)
     {
-        //
+        Presentation::create($request->validated());
+        return redirect()->route('presentations.index');
     }
 
     /**
@@ -43,7 +46,8 @@ class PresentationController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $presentation = Presentation::findOrFail($id);
+        return view('presentations.edit', compact('presentation'));
     }
 
     /**
@@ -51,7 +55,9 @@ class PresentationController extends Controller
      */
     public function update(PresentationRequest $request, string $id)
     {
-        //
+        $presentation = Presentation::findOrFail($id);
+        $presentation->update($request->validated());
+        return redirect()->route('presentations.index');
     }
 
     /**
@@ -59,6 +65,8 @@ class PresentationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $presentation = Presentation::findOrFail($id);
+        $presentation->delete();
+        return redirect()->route('presentations.index')->with('success', 'Presentación eliminada correctamente');
     }
 }

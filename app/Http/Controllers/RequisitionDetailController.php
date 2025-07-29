@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RequisitionDetailRequest;
+use App\Models\RequisitionDetail;
 
 class RequisitionDetailController extends Controller
 {
@@ -11,7 +12,8 @@ class RequisitionDetailController extends Controller
      */
     public function index()
     {
-        //
+        $requisitionDetails = RequisitionDetail::all();
+        return view('requisition_details.index', compact('requisitionDetails'));
     }
 
     /**
@@ -19,7 +21,7 @@ class RequisitionDetailController extends Controller
      */
     public function create()
     {
-        //
+        return view('requisition_details.create');
     }
 
     /**
@@ -27,7 +29,8 @@ class RequisitionDetailController extends Controller
      */
     public function store(RequisitionDetailRequest $request)
     {
-        //
+        RequisitionDetail::create($request->validated());
+        return redirect()->route('requisition_details.index');
     }
 
     /**
@@ -43,7 +46,8 @@ class RequisitionDetailController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $requisitionDetail = RequisitionDetail::findOrFail($id);
+        return view('requisition_details.edit', compact('requisitionDetail'));
     }
 
     /**
@@ -51,7 +55,9 @@ class RequisitionDetailController extends Controller
      */
     public function update(RequisitionDetailRequest $request, string $id)
     {
-        //
+        $requisitionDetail = RequisitionDetail::findOrFail($id);
+        $requisitionDetail->update($request->validated());
+        return redirect()->route('requisition_details.index');
     }
 
     /**
@@ -59,6 +65,8 @@ class RequisitionDetailController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $requisitionDetail = RequisitionDetail::findOrFail($id);
+        $requisitionDetail->delete();
+        return redirect()->route('requisition_details.index')->with('success', 'Detalle de requisición eliminado correctamente');
     }
 }

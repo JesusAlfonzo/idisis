@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InventoryLotRequest;
+use App\Models\InventoryLot;
 
 class InventoryLotController extends Controller
 {
@@ -11,7 +12,8 @@ class InventoryLotController extends Controller
      */
     public function index()
     {
-        //
+        $inventoryLots = InventoryLot::all();
+        return view('inventory_lots.index', compact('inventoryLots'));
     }
 
     /**
@@ -19,7 +21,7 @@ class InventoryLotController extends Controller
      */
     public function create()
     {
-        //
+        return view('inventory_lots.create');
     }
 
     /**
@@ -27,7 +29,8 @@ class InventoryLotController extends Controller
      */
     public function store(InventoryLotRequest $request)
     {
-        //
+        InventoryLot::create($request->validated());
+        return redirect()->route('inventory_lots.index');
     }
 
     /**
@@ -43,7 +46,8 @@ class InventoryLotController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $inventoryLot = InventoryLot::findOrFail($id);
+        return view('inventory_lots.edit', compact('inventoryLot'));
     }
 
     /**
@@ -51,7 +55,9 @@ class InventoryLotController extends Controller
      */
     public function update(InventoryLotRequest $request, string $id)
     {
-        //
+        $inventoryLot = InventoryLot::findOrFail($id);
+        $inventoryLot->update($request->validated());
+        return redirect()->route('inventory_lots.index');
     }
 
     /**
@@ -59,6 +65,8 @@ class InventoryLotController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $inventoryLot = InventoryLot::findOrFail($id);
+        $inventoryLot->delete();
+        return redirect()->route('inventory_lots.index')->with('success', 'Lote de inventario eliminado correctamente');
     }
 }

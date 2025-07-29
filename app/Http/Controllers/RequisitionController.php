@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RequisitionRequest;
+use App\Models\Requisition;
 
 class RequisitionController extends Controller
 {
@@ -11,7 +12,8 @@ class RequisitionController extends Controller
      */
     public function index()
     {
-        //
+        $requisitions = Requisition::all();
+        return view('requisitions.index', compact('requisitions'));
     }
 
     /**
@@ -19,7 +21,7 @@ class RequisitionController extends Controller
      */
     public function create()
     {
-        //
+        return view('requisitions.create');
     }
 
     /**
@@ -27,7 +29,8 @@ class RequisitionController extends Controller
      */
     public function store(RequisitionRequest $request)
     {
-        //
+        Requisition::create($request->validated());
+        return redirect()->route('requisitions.index');
     }
 
     /**
@@ -43,7 +46,8 @@ class RequisitionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $requisition = Requisition::findOrFail($id);
+        return view('requisitions.edit', compact('requisition'));
     }
 
     /**
@@ -51,7 +55,9 @@ class RequisitionController extends Controller
      */
     public function update(RequisitionRequest $request, string $id)
     {
-        //
+        $requisition = Requisition::findOrFail($id);
+        $requisition->update($request->validated());
+        return redirect()->route('requisitions.index');
     }
 
     /**
@@ -59,6 +65,8 @@ class RequisitionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $requisition = Requisition::findOrFail($id);
+        $requisition->delete();
+        return redirect()->route('requisitions.index')->with('success', 'Requisición eliminada correctamente');
     }
 }

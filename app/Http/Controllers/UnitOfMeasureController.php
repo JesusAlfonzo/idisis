@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UnitOfMeasureRequest;
+use App\Models\UnitOfMeasure;
 
 class UnitOfMeasureController extends Controller
 {
@@ -11,7 +12,8 @@ class UnitOfMeasureController extends Controller
      */
     public function index()
     {
-        //
+        $unitsOfMeasure = UnitOfMeasure::all();
+        return view('unit_of_measure.index', compact('unitsOfMeasure'));
     }
 
     /**
@@ -19,7 +21,7 @@ class UnitOfMeasureController extends Controller
      */
     public function create()
     {
-        //
+        return view('unit_of_measure.create');
     }
 
     /**
@@ -27,7 +29,8 @@ class UnitOfMeasureController extends Controller
      */
     public function store(UnitOfMeasureRequest $request)
     {
-        //
+        UnitOfMeasure::create($request->validated());
+        return redirect()->route('unit_of_measure.index');
     }
 
     /**
@@ -43,7 +46,8 @@ class UnitOfMeasureController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $unitOfMeasure = UnitOfMeasure::findOrFail($id);
+        return view('unit_of_measure.edit', compact('unitOfMeasure'));
     }
 
     /**
@@ -51,7 +55,9 @@ class UnitOfMeasureController extends Controller
      */
     public function update(UnitOfMeasureRequest $request, string $id)
     {
-        //
+        $unitOfMeasure = UnitOfMeasure::findOrFail($id);
+        $unitOfMeasure->update($request->validated());
+        return redirect()->route('unit_of_measure.index');
     }
 
     /**
@@ -59,6 +65,8 @@ class UnitOfMeasureController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $unitOfMeasure = UnitOfMeasure::findOrFail($id);
+        $unitOfMeasure->delete();
+        return redirect()->route('unit_of_measure.index')->with('success', 'Unidad de medida eliminada correctamente');
     }
 }

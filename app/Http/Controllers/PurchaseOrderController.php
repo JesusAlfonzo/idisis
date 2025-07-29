@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PurchaseOrderRequest;
+use App\Models\PurchaseOrder;
 
 class PurchaseOrderController extends Controller
 {
@@ -11,7 +12,8 @@ class PurchaseOrderController extends Controller
      */
     public function index()
     {
-        //
+        $purchaseOrders = PurchaseOrder::all();
+        return view('purchase_orders.index', compact('purchaseOrders'));
     }
 
     /**
@@ -19,7 +21,7 @@ class PurchaseOrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('purchase_orders.create');
     }
 
     /**
@@ -27,7 +29,8 @@ class PurchaseOrderController extends Controller
      */
     public function store(PurchaseOrderRequest $request)
     {
-        //
+        PurchaseOrder::create($request->validated());
+        return redirect()->route('purchase_orders.index');
     }
 
     /**
@@ -43,7 +46,8 @@ class PurchaseOrderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $purchaseOrder = PurchaseOrder::findOrFail($id);
+        return view('purchase_orders.edit', compact('purchaseOrder'));
     }
 
     /**
@@ -51,7 +55,9 @@ class PurchaseOrderController extends Controller
      */
     public function update(PurchaseOrderRequest $request, string $id)
     {
-        //
+        $purchaseOrder = PurchaseOrder::findOrFail($id);
+        $purchaseOrder->update($request->validated());
+        return redirect()->route('purchase_orders.index');
     }
 
     /**
@@ -59,6 +65,8 @@ class PurchaseOrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $purchaseOrder = PurchaseOrder::findOrFail($id);
+        $purchaseOrder->delete();
+        return redirect()->route('purchase_orders.index')->with('success', 'Orden de compra eliminada correctamente');
     }
 }

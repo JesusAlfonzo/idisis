@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\WarehouseRequest;
+use App\Models\Warehouse;
 
 class WarehouseController extends Controller
 {
@@ -11,7 +12,8 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        //
+        $warehouses = Warehouse::all();
+        return view('warehouses.index', compact('warehouses'));
     }
 
     /**
@@ -19,7 +21,7 @@ class WarehouseController extends Controller
      */
     public function create()
     {
-        //
+        return view('warehouses.create');
     }
 
     /**
@@ -27,7 +29,8 @@ class WarehouseController extends Controller
      */
     public function store(WarehouseRequest $request)
     {
-        //
+        Warehouse::create($request->validated());
+        return redirect()->route('warehouses.index');
     }
 
     /**
@@ -35,7 +38,7 @@ class WarehouseController extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
@@ -43,7 +46,8 @@ class WarehouseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $warehouse = Warehouse::findOrFail($id);
+        return view('warehouses.edit', compact('warehouse'));
     }
 
     /**
@@ -51,7 +55,9 @@ class WarehouseController extends Controller
      */
     public function update(WarehouseRequest $request, string $id)
     {
-        //
+        $warehouse = Warehouse::findOrFail($id);
+        $warehouse->update($request->validated());
+        return redirect()->route('warehouses.index');
     }
 
     /**
@@ -59,6 +65,8 @@ class WarehouseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $warehouse = Warehouse::findOrFail($id);
+        $warehouse->delete();
+        return redirect()->route('warehouses.index')->with('success', 'Almacén eliminado correctamente');
     }
 }

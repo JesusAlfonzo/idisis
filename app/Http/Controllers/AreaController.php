@@ -7,6 +7,23 @@ use App\Models\Area;
 
 class AreaController extends Controller
 {
+    public function index()
+    {
+        $areas = Area::all();
+        return view('areas.index', compact('areas'));
+    }
+
+    public function edit(Area $area)
+    {
+        return view('areas.edit', compact('area'));
+    }
+
+    public function destroy(Area $area)
+    {
+        $area->delete();
+        return redirect()->route('areas.index')->with('success', 'Área eliminada correctamente');
+    }
+
     public function create()
     {
         return view('areas.create');

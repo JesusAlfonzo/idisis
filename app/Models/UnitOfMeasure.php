@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class UnitOfMeasure extends Model
 {
+    protected $table = 'unit_of_measure';
     use HasFactory;
 
     protected $fillable = [
