@@ -11,7 +11,7 @@ class InventoryLotRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class InventoryLotRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'product_id' => 'required|exists:products,id',
+            'warehouse_id' => 'required|exists:warehouses,id',
+            'quantity' => 'required|integer|min:1',
+            'created_by' => 'nullable|string|max:255',
+            'updated_by' => 'nullable|string|max:255',
+            'deleted_by' => 'nullable|string|max:255',
         ];
     }
 }

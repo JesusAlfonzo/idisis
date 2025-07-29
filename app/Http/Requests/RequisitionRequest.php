@@ -11,7 +11,7 @@ class RequisitionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class RequisitionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'requisition_number' => 'required|string|max:255|unique:requisitions,requisition_number',
+            'requested_by' => 'required|exists:users,id',
+            'status' => 'required|in:pending,approved,rejected',
+            'created_by' => 'nullable|string|max:255',
+            'updated_by' => 'nullable|string|max:255',
+            'deleted_by' => 'nullable|string|max:255',
+            // Additional rules can be added here if needed
         ];
     }
 }

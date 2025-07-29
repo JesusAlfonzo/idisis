@@ -11,6 +11,10 @@ class Area extends Model
 
     protected $fillable = [
         'name',
+        'description',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     public function employees()

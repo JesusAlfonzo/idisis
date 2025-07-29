@@ -11,7 +11,7 @@ class UnitOfMeasureRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class UnitOfMeasureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255|unique:unit_of_measures,name',
+            'abbreviation' => 'nullable|string|max:50|unique:unit_of_measures,abbreviation',
+            'description' => 'nullable|string|max:500',
+            'created_by' => 'nullable|string|max:255',
+            'updated_by' => 'nullable|string|max:255',
+            'deleted_by' => 'nullable|string|max:255',
+            'created_at' => 'nullable|date',
+            'updated_at' => 'nullable|date',
+            'deleted_at' => 'nullable|date',
         ];
     }
 }

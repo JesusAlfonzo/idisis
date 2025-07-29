@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\AreaRequest;
 use App\Models\Area;
 
 class AreaController extends Controller
@@ -12,14 +12,18 @@ class AreaController extends Controller
         return view('areas.create');
     }
 
-    public function store(Request $request)
+    public function store(AreaRequest $request)
     {
-        $request->validate([
-            'name' => 'required|unique:areas,name',
-        ]);
 
         Area::create($request->only('name'));
 
         return redirect()->route('areas.create')->with('success', 'Área registrada correctamente');
+    }
+
+    public function update(AreaRequest $request, Area $area)
+    {
+        $area->update($request->only('name'));
+
+        // return redirect()->route('areas.index')->with('success', 'Área actualizada correctamente'); de momento no existe la vista de index
     }
 }

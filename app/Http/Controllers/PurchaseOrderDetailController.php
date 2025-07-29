@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\PurchaseOrderDetailRequest;
 
 class PurchaseOrderDetailController extends Controller
 {
@@ -25,7 +25,7 @@ class PurchaseOrderDetailController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PurchaseOrderDetailRequest $request)
     {
         //
     }
@@ -49,7 +49,7 @@ class PurchaseOrderDetailController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PurchaseOrderDetailRequest $request, string $id)
     {
         //
     }

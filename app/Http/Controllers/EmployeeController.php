@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use App\Models\Area;
 
@@ -14,7 +14,7 @@ class EmployeeController extends Controller
         return view('employees.create', compact('areas'));
     }
 
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
         $request->validate([
             'first_name' => 'required',

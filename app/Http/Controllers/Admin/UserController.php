@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 
@@ -17,16 +17,8 @@ class UserController extends Controller
     return view('admin.users.create', compact('roles', 'employees'));
   }
 
-  public function store(Request $request)
+  public function store(StoreUserRequest $request)
   {
-    $request->validate([
-      'name' => 'required',
-      'email' => 'required|email|unique:users',
-      'password' => 'required|min:6',
-      'role' => 'required|exists:roles,name',
-      'employee_id' => 'required|exists:employees,id',
-    ]);
-
     $user = User::create([
       'name' => $request->name,
       'email' => $request->email,
