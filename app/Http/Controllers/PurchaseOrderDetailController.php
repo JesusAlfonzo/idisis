@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PurchaseOrderDetailRequest;
 use App\Models\PurchaseOrderDetail;
+use App\Models\PurchaseOrder;
+use App\Models\Product;
 
 class PurchaseOrderDetailController extends Controller
 {
@@ -21,7 +23,9 @@ class PurchaseOrderDetailController extends Controller
      */
     public function create()
     {
-        return view('purchase_order_details.create');
+        $purchaseOrders = PurchaseOrder::all();
+        $products = Product::all();
+        return view('purchase_order_details.create', compact('purchaseOrders', 'products'));
     }
 
     /**

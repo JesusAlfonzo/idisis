@@ -32,15 +32,15 @@ class AreaController extends Controller
     public function store(AreaRequest $request)
     {
 
-        Area::create($request->only('name'));
+        Area::create($request->only('name', 'description'));
 
-        return redirect()->route('areas.create')->with('success', 'Área registrada correctamente');
+        return redirect()->route('areas.index')->with('success', 'Área registrada correctamente');
     }
 
     public function update(AreaRequest $request, Area $area)
     {
-        $area->update($request->only('name'));
+        $area->update($request->only('name', 'description'));
 
-        // return redirect()->route('areas.index')->with('success', 'Área actualizada correctamente'); de momento no existe la vista de index
+        return redirect()->route('areas.index')->with('success', 'Área actualizada correctamente');
     }
 }

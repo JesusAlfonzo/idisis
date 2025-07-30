@@ -21,7 +21,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        $category = new Category();
+        return view('categories.create', compact('category'));
     }
 
     /**
@@ -30,15 +31,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         Category::create($request->validated());
-        return redirect()->route('categories.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        return redirect()->route('categories.index')->with('success', 'Categoría creada correctamente');
     }
 
     /**
@@ -57,7 +50,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->update($request->validated());
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->with('success', 'Categoría actualizada correctamente');
     }
 
     /**

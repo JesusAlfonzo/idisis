@@ -1,18 +1,16 @@
 @extends('adminlte::page')
 
-@section('content')
+@section('title', 'Registrar nuevo empleado')
+
+@section('content_header')
     <h1>Registrar nuevo empleado</h1>
+@endsection
+
+@section('content')
     <form action="{{ route('employees.store') }}" method="POST">
         @csrf
-        <input type="text" name="first_name" placeholder="Nombre" required>
-        <input type="text" name="last_name" placeholder="Apellido" required>
-        <input type="text" name="position" placeholder="Cargo (opcional)">
-        <select name="area_id" required>
-            <option value="">Seleccione un área</option>
-            @foreach($areas as $area)
-                <option value="{{ $area->id }}">{{ $area->name }}</option>
-            @endforeach
-        </select>
-        <button type="submit">Registrar</button>
+        @include('employees.form', ['employee' => null, 'areas' => $areas])
+        <button type="submit" class="btn btn-primary">Registrar</button>
+        <a href="{{ route('employees.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 @endsection

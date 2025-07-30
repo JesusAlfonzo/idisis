@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RequisitionRequest;
 use App\Models\Requisition;
+use App\Models\Area;
+use App\Models\Employee;
 
 class RequisitionController extends Controller
 {
@@ -21,7 +23,10 @@ class RequisitionController extends Controller
      */
     public function create()
     {
-        return view('requisitions.create');
+        $areas = Area::all();
+        $employees = Employee::all();
+        $requisition = new \App\Models\Requisition();
+        return view('requisitions.create', compact('areas', 'employees', 'requisition'));
     }
 
     /**
@@ -47,7 +52,9 @@ class RequisitionController extends Controller
     public function edit(string $id)
     {
         $requisition = Requisition::findOrFail($id);
-        return view('requisitions.edit', compact('requisition'));
+        $areas = Area::all();
+        $employees = Employee::all();
+        return view('requisitions.edit', compact('requisition', 'areas', 'employees'));
     }
 
     /**

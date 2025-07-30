@@ -1,9 +1,28 @@
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="form-group">
     <label for="product_id">Producto</label>
     <select name="product_id" class="form-control" required>
         <option value="">Seleccione</option>
         @foreach($products as $product)
             <option value="{{ $product->id }}" {{ old('product_id', $lot->product_id ?? '') == $product->id ? 'selected' : '' }}>{{ $product->name }}</option>
+        @endforeach
+    </select>
+</div>
+<div class="form-group">
+    <label for="warehouse_id">Almacén</label>
+    <select name="warehouse_id" class="form-control" required>
+        <option value="">Seleccione</option>
+        @foreach($warehouses as $warehouse)
+            <option value="{{ $warehouse->id }}" {{ old('warehouse_id', $lot->warehouse_id ?? '') == $warehouse->id ? 'selected' : '' }}>{{ $warehouse->name }}</option>
         @endforeach
     </select>
 </div>

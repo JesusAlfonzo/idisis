@@ -28,11 +28,13 @@
                     <td>{{ $area->description }}</td>
                     <td>
                         <a href="{{ route('areas.edit', $area) }}" class="btn btn-warning btn-sm">Editar</a>
-                        <form action="{{ route('areas.destroy', $area) }}" method="POST" style="display:inline-block">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro?')">Eliminar</button>
-                        </form>
+                        @include('components.delete-modal', [
+                            'modalId' => $area->id,
+                            'action' => route('areas.destroy', $area),
+                            'modalTitle' => 'Confirmar eliminación',
+                            'modalBody' => '¿Estás seguro de que deseas eliminar esta área?',
+                            'buttonText' => 'Eliminar'
+                        ])
                     </td>
                 </tr>
             @endforeach

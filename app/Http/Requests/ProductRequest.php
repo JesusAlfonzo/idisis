@@ -21,18 +21,17 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
+        $productId = $this->route('product');
         return [
-            'name' => 'required|string|max:255|unique:products,name',
+            'name' => 'required|string|max:255|unique:products,name' . ($productId ? ",{$productId}" : ''),
             'description' => 'nullable|string|max:1000',
             'price' => 'required|numeric|min:0',
             'category_id' => 'required|exists:categories,id',
             'brand_id' => 'nullable|exists:brands,id',
             'presentation_id' => 'nullable|exists:presentations,id',
-            'is_active' => 'required|boolean',
-            'created_by' => 'nullable|string|max:255',
-            'updated_by' => 'nullable|string|max:255',
-            'deleted_by' => 'nullable|string|max:255',
-            // Additional rules can be added here if needed
+            'unit_of_measure_id' => 'required|exists:unit_of_measures,id',
+            'supplier_id' => 'nullable|exists:suppliers,id',
+            'is_active' => 'sometimes|boolean',
         ];
     }
 }

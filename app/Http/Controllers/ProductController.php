@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Brand;
+use App\Models\Presentation;
+use App\Models\UnitOfMeasure;
 
 class ProductController extends Controller
 {
@@ -21,7 +25,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Category::all();
+        $brands = Brand::all();
+        $presentations = Presentation::all();
+        $unitOfMeasures = UnitOfMeasure::all();
+        $suppliers = \App\Models\Supplier::all();
+        $product = new Product(['is_active' => 1]);
+        return view('products.create', compact('categories', 'brands', 'presentations', 'unitOfMeasures', 'suppliers', 'product'));
     }
 
     /**
@@ -29,8 +39,10 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        Product::create($request->validated());
-        return redirect()->route('products.index');
+        $data = $request->validated();
+        $data['is_active'] = $request->input('is_active', 1);
+        Product::create($data);
+        return redirect()->route('products.index')->with('success', 'Producto creado correctamente');
     }
 
     /**
@@ -47,7 +59,12 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
-        return view('products.edit', compact('product'));
+        $categories = Category::all();
+        $brands = Brand::all();
+        $presentations = Presentation::all();
+        $unitOfMeasures = UnitOfMeasure::all();
+        $suppliers = \App\Models\Supplier::all();
+        return view('products.edit', compact('product', 'categories', 'brands', 'presentations', 'unitOfMeasures', 'suppliers'));
     }
 
     /**
@@ -56,8 +73,10 @@ class ProductController extends Controller
     public function update(ProductRequest $request, string $id)
     {
         $product = Product::findOrFail($id);
-        $product->update($request->validated());
-        return redirect()->route('products.index');
+        $data = $request->validated();
+        $data['is_active'] = $request->input('is_active', 1);
+        $product->update($data);
+        return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente');
     }
 
     /**

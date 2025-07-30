@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PurchaseOrderRequest;
 use App\Models\PurchaseOrder;
+use App\Models\Supplier;
+
 
 class PurchaseOrderController extends Controller
 {
@@ -21,7 +23,12 @@ class PurchaseOrderController extends Controller
      */
     public function create()
     {
-        return view('purchase_orders.create');
+        $suppliers = \App\Models\Supplier::all();
+        $employees = \App\Models\Employee::all();
+        $requisitions = \App\Models\Requisition::all();
+        $products = \App\Models\Product::all();
+        $purchaseOrder = new PurchaseOrder();
+        return view('purchase_orders.create', compact('suppliers', 'employees', 'requisitions', 'products', 'purchaseOrder'));
     }
 
     /**
@@ -47,7 +54,11 @@ class PurchaseOrderController extends Controller
     public function edit(string $id)
     {
         $purchaseOrder = PurchaseOrder::findOrFail($id);
-        return view('purchase_orders.edit', compact('purchaseOrder'));
+        $suppliers = \App\Models\Supplier::all();
+        $employees = \App\Models\Employee::all();
+        $requisitions = \App\Models\Requisition::all();
+        $products = \App\Models\Product::all();
+        return view('purchase_orders.edit', compact('purchaseOrder', 'suppliers', 'employees', 'requisitions', 'products'));
     }
 
     /**

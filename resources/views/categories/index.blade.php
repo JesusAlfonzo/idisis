@@ -28,11 +28,13 @@
                     <td>{{ $category->description }}</td>
                     <td>
                         <a href="{{ route('categories.edit', $category) }}" class="btn btn-warning btn-sm">Editar</a>
-                        <form action="{{ route('categories.destroy', $category) }}" method="POST" style="display:inline-block">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro?')">Eliminar</button>
-                        </form>
+                        @include('components.delete-modal', [
+                            'modalId' => $category->id,
+                            'action' => route('categories.destroy', $category),
+                            'modalTitle' => 'Confirmar eliminación',
+                            'modalBody' => '¿Estás seguro de que deseas eliminar esta categoría?',
+                            'buttonText' => 'Eliminar'
+                        ])
                     </td>
                 </tr>
             @endforeach

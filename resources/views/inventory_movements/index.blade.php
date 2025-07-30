@@ -18,18 +18,24 @@
                 <th>Producto</th>
                 <th>Cantidad</th>
                 <th>Tipo</th>
-                <th>Fecha</th>
+                <th>Almacén</th>
+                <th>Empleado</th>
+                <th>Lote</th>
+                <th>Notas</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($inventory_movements as $movement)
+            @foreach($movements as $movement)
                 <tr>
                     <td>{{ $movement->id }}</td>
                     <td>{{ $movement->product->name ?? '' }}</td>
                     <td>{{ $movement->quantity }}</td>
                     <td>{{ $movement->type }}</td>
-                    <td>{{ $movement->date }}</td>
+                    <td>{{ $movement->warehouse->name ?? '' }}</td>
+                    <td>{{ $movement->employee->first_name ?? '' }} {{ $movement->employee->last_name ?? '' }}</td>
+                    <td>{{ $movement->inventoryLot ? 'Lote #'.$movement->inventoryLot->id : '' }}</td>
+                    <td>{{ $movement->notes }}</td>
                     <td>
                         <a href="{{ route('inventory_movements.edit', $movement) }}" class="btn btn-warning btn-sm">Editar</a>
                         <form action="{{ route('inventory_movements.destroy', $movement) }}" method="POST" style="display:inline-block">
@@ -42,4 +48,5 @@
             @endforeach
         </tbody>
     </table>
+    {{ $movements->links() }}
 @endsection

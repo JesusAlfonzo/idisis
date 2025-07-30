@@ -22,7 +22,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($purchase_orders as $order)
+            @foreach($purchaseOrders as $order)
                 <tr>
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->supplier->name ?? '' }}</td>

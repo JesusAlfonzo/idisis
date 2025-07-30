@@ -22,7 +22,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($requisition_details as $detail)
+            @foreach($requisitionDetails as $detail)
                 <tr>
                     <td>{{ $detail->id }}</td>
                     <td>{{ $detail->requisition->id ?? '' }}</td>

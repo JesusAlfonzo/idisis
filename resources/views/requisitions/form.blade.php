@@ -1,3 +1,13 @@
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="form-group">
     <label for="area_id">Área</label>
     <select name="area_id" class="form-control" required>
@@ -12,7 +22,7 @@
     <select name="employee_id" class="form-control" required>
         <option value="">Seleccione</option>
         @foreach($employees as $employee)
-            <option value="{{ $employee->id }}" {{ old('employee_id', $requisition->employee_id ?? '') == $employee->id ? 'selected' : '' }}>{{ $employee->name }}</option>
+            <option value="{{ $employee->id }}" {{ old('employee_id', $requisition->employee_id ?? '') == $employee->id ? 'selected' : '' }}>{{ $employee->first_name }} {{ $employee->last_name }}</option>
         @endforeach
     </select>
 </div>
@@ -22,5 +32,9 @@
 </div>
 <div class="form-group">
     <label for="status">Estado</label>
-    <input type="text" name="status" class="form-control" value="{{ old('status', $requisition->status ?? '') }}" required>
+    <select name="status" class="form-control" required>
+        <option value="pending" {{ old('status', $requisition->status ?? 'pending') == 'pending' ? 'selected' : '' }}>Pendiente</option>
+        <option value="approved" {{ old('status', $requisition->status ?? '') == 'approved' ? 'selected' : '' }}>Aprobada</option>
+        <option value="rejected" {{ old('status', $requisition->status ?? '') == 'rejected' ? 'selected' : '' }}>Rechazada</option>
+    </select>
 </div>

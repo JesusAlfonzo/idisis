@@ -65,22 +65,26 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('warehouses', WarehouseController::class); 
 
     // CRUD de productos
-    Route::resource('products', ProductController::class); //error en create y form
+    Route::resource('products', ProductController::class);
+
 
     // CRUD de lotes de inventario
-    Route::resource('inventory_lots', InventoryLotController::class); //varible indefinida en index
+    Route::resource('inventory_lots', InventoryLotController::class);
+
+    // CRUD de movimientos de inventario
+    Route::resource('inventory_movements', App\Http\Controllers\InventoryMovementController::class);
 
     // CRUD de órdenes de compra y detalles
-    Route::resource('purchase_orders', PurchaseOrderController::class); //variable indefinida en index
+    Route::resource('purchase_orders', PurchaseOrderController::class);
     
     // CRUD de detalles de órdenes de compra
-    Route::resource('purchase_order_details', PurchaseOrderDetailController::class); //variable indefinida en index
+    Route::resource('purchase_order_details', PurchaseOrderDetailController::class);
 
     // CRUD de requisiciones y detalles
-    Route::resource('requisitions', RequisitionController::class);  //variable indefinida en create form
+    Route::resource('requisitions', RequisitionController::class);
 
     // CRUD de detalles de requisiciones
-    Route::resource('requisition_details', RequisitionDetailController::class); //variable indefinida en index
+    Route::resource('requisition_details', RequisitionDetailController::class);
 
     // Agrega aquí cualquier otra entidad que tengas
 });

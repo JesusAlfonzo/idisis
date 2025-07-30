@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\InventoryLotRequest;
 use App\Models\InventoryLot;
+use App\Models\Product;
+
 
 class InventoryLotController extends Controller
 {
@@ -21,7 +23,9 @@ class InventoryLotController extends Controller
      */
     public function create()
     {
-        return view('inventory_lots.create');
+        $products = Product::all();
+        $warehouses = \App\Models\Warehouse::all();
+        return view('inventory_lots.create', compact('products', 'warehouses'));
     }
 
     /**
@@ -46,8 +50,10 @@ class InventoryLotController extends Controller
      */
     public function edit(string $id)
     {
-        $inventoryLot = InventoryLot::findOrFail($id);
-        return view('inventory_lots.edit', compact('inventoryLot'));
+        $lot = InventoryLot::findOrFail($id);
+        $products = \App\Models\Product::all();
+        $warehouses = \App\Models\Warehouse::all();
+        return view('inventory_lots.edit', compact('lot', 'products', 'warehouses'));
     }
 
     /**

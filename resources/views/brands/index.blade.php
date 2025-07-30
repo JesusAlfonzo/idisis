@@ -26,11 +26,13 @@
                     <td>{{ $brand->name }}</td>
                     <td>
                         <a href="{{ route('brands.edit', $brand) }}" class="btn btn-warning btn-sm">Editar</a>
-                        <form action="{{ route('brands.destroy', $brand) }}" method="POST" style="display:inline-block">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro?')">Eliminar</button>
-                        </form>
+                        @include('components.delete-modal', [
+                            'modalId' => $brand->id,
+                            'action' => route('brands.destroy', $brand),
+                            'modalTitle' => 'Confirmar eliminación',
+                            'modalBody' => '¿Estás seguro de que deseas eliminar esta marca?',
+                            'buttonText' => 'Eliminar'
+                        ])
                     </td>
                 </tr>
             @endforeach

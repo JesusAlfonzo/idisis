@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'IDISIS - Gestión de Inventario',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>IDI</b>sistemas',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'IDISIS Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -312,86 +312,74 @@ return [
 
         // Sidebar items:
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'header' => 'GESTIÓN',
         ],
         [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
+            'text' => 'Usuarios',
+            'url' => 'admin/users',
+            'icon' => 'fas fa-users',
         ],
         [
-            'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Áreas',
+            'url' => 'areas',
+            'icon' => 'fas fa-th-large',
         ],
         [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text' => 'Marcas',
+            'url' => 'brands',
+            'icon' => 'fas fa-tags',
         ],
         [
-            'text' => 'multilevel',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                        ],
-                        [
-                            'text' => 'level_two',
-                            'url' => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url' => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url' => '#',
-                ],
-            ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text' => 'important',
-            'icon_color' => 'red',
-            'url' => '#',
+            'text' => 'Categorías',
+            'url' => 'categories',
+            'icon' => 'fas fa-list',
         ],
         [
-            'text' => 'warning',
-            'icon_color' => 'yellow',
-            'url' => '#',
+            'text' => 'Empleados',
+            'url' => 'employees',
+            'icon' => 'fas fa-id-badge',
         ],
         [
-            'text' => 'information',
-            'icon_color' => 'cyan',
-            'url' => '#',
+            'text' => 'Lotes de Inventario',
+            'url' => 'inventory_lots',
+            'icon' => 'fas fa-boxes',
         ],
+        [
+            'text' => 'Movimientos de Inventario',
+            'url' => 'inventory_movements',
+            'icon' => 'fas fa-exchange-alt',
+        ],
+        [
+            'text' => 'Presentaciones',
+            'url' => 'presentations',
+            'icon' => 'fas fa-cube',
+        ],
+        [
+            'text' => 'Productos',
+            'url' => 'products',
+            'icon' => 'fas fa-box',
+        ],
+        [
+            'text' => 'Órdenes de Compra',
+            'url' => 'purchase_orders',
+            'icon' => 'fas fa-file-invoice-dollar',
+        ],
+        [
+            'text' => 'Requisiciones',
+            'url' => 'requisitions',
+            'icon' => 'fas fa-file-signature',
+        ],
+        [
+            'text' => 'Proveedores',
+            'url' => 'suppliers',
+            'icon' => 'fas fa-truck',
+        ],
+        [
+            'text' => 'Unidades de Medida',
+            'url' => 'unit_of_measure',
+            'icon' => 'fas fa-ruler',
+        ],
+        // ...otros ítems existentes si se desean conservar...
     ],
 
     /*

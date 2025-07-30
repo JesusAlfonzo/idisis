@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">Nuevo Usuario</a>
+    <a href="{{ route('admin.users.create') }}" class="btn btn-primary mb-3">Nuevo Usuario</a>
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -29,12 +29,14 @@
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->role->name ?? '' }}</td>
                     <td>
-                        <a href="{{ route('users.edit', $user) }}" class="btn btn-warning btn-sm">Editar</a>
-                        <form action="{{ route('users.destroy', $user) }}" method="POST" style="display:inline-block">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro?')">Eliminar</button>
-                        </form>
+                        <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-warning btn-sm">Editar</a>
+                        @include('components.delete-modal', [
+                            'modalId' => $user->id,
+                            'action' => route('admin.users.destroy', $user),
+                            'modalTitle' => 'Confirmar eliminación',
+                            'modalBody' => '¿Estás seguro de que deseas eliminar este usuario?',
+                            'buttonText' => 'Eliminar'
+                        ])
                     </td>
                 </tr>
             @endforeach

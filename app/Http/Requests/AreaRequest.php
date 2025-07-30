@@ -21,8 +21,9 @@ class AreaRequest extends FormRequest
      */
     public function rules(): array
     {
+        $areaId = $this->route('area');
         return [
-            'name' => 'required|string|max:255|unique:areas,name',
+            'name' => 'required|string|max:255|unique:areas,name,' . $areaId,
             'description' => 'nullable|string',
             'created_by' => 'nullable|string|max:255',
             'updated_by' => 'nullable|string|max:255',

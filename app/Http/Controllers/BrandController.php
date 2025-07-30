@@ -30,18 +30,17 @@ class BrandController extends Controller
     public function store(BrandRequest $request)
     {
         Brand::create($request->validated());
-        return redirect()->route('brands.index');
+        return redirect()->route('brands.index')->with('success', 'Marca registrada correctamente');
     }
 
     /**
      * Display the specified resource.
      */
 
-    // public function show(string $id)
-    // {
-    //     $brand = Brand::findOrFail($id);
-    //     return view('brands.show', compact('brand'));
-    // }
+    public function show(string $id)
+    {
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -59,7 +58,7 @@ class BrandController extends Controller
     {
         $brand = Brand::findOrFail($id);
         $brand->update($request->validated());
-        return redirect()->route('brands.index');
+        return redirect()->route('brands.index')->with('success', 'Marca actualizada correctamente');
     }
 
     /**

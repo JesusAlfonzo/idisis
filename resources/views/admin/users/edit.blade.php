@@ -7,11 +7,11 @@
 @endsection
 
 @section('content')
-    <form action="{{ route('users.update', $user) }}" method="POST">
+    <form action="{{ route('admin.users.update', $user) }}" method="POST">
         @csrf
         @method('PUT')
         @include('admin.users.form')
         <button type="submit" class="btn btn-primary">Actualizar</button>
-        <a href="{{ route('users.index') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 @endsection

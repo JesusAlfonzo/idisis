@@ -22,7 +22,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($inventory_lots as $lot)
+            @foreach($inventoryLots as $lot)
                 <tr>
                     <td>{{ $lot->id }}</td>
                     <td>{{ $lot->product->name ?? '' }}</td>

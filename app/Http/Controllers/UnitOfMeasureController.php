@@ -21,7 +21,8 @@ class UnitOfMeasureController extends Controller
      */
     public function create()
     {
-        return view('unit_of_measure.create');
+        $unitOfMeasure = null;
+        return view('unit_of_measure.create', compact('unitOfMeasure'));
     }
 
     /**

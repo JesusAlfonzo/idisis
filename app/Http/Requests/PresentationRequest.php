@@ -21,14 +21,11 @@ class PresentationRequest extends FormRequest
      */
     public function rules(): array
     {
+        $presentationId = $this->route('presentation');
         return [
-            'name' => 'required|string|max:255|unique:presentations,name',
+            'name' => 'required|string|max:255|unique:presentations,name' . ($presentationId ? ",{$presentationId}" : ''),
             'description' => 'nullable|string|max:1000',
-            'is_active' => 'required|boolean',
-            'created_by' => 'nullable|string|max:255',
-            'updated_by' => 'nullable|string|max:255',
-            'deleted_by' => 'nullable|string|max:255',
-            // Additional rules can be added here if needed
+            'is_active' => 'sometimes|boolean',
         ];
     }
 }

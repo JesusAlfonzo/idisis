@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RequisitionDetailRequest;
 use App\Models\RequisitionDetail;
+use App\Models\Requisition;
+use App\Models\Product;
 
 class RequisitionDetailController extends Controller
 {
@@ -21,7 +23,9 @@ class RequisitionDetailController extends Controller
      */
     public function create()
     {
-        return view('requisition_details.create');
+        $requisitions = Requisition::all();
+        $products = Product::all();
+        return view('requisition_details.create', compact('requisitions', 'products'));
     }
 
     /**

@@ -21,7 +21,8 @@ class PresentationController extends Controller
      */
     public function create()
     {
-        return view('presentations.create');
+        $presentation = new Presentation(['is_active' => 1]);
+        return view('presentations.create', compact('presentation'));
     }
 
     /**
@@ -29,8 +30,10 @@ class PresentationController extends Controller
      */
     public function store(PresentationRequest $request)
     {
-        Presentation::create($request->validated());
-        return redirect()->route('presentations.index');
+        $data = $request->validated();
+        $data['is_active'] = $request->input('is_active', 1);
+        Presentation::create($data);
+        return redirect()->route('presentations.index')->with('success', 'Presentación creada correctamente');
     }
 
     /**
@@ -56,8 +59,10 @@ class PresentationController extends Controller
     public function update(PresentationRequest $request, string $id)
     {
         $presentation = Presentation::findOrFail($id);
-        $presentation->update($request->validated());
-        return redirect()->route('presentations.index');
+        $data = $request->validated();
+        $data['is_active'] = $request->input('is_active', 1);
+        $presentation->update($data);
+        return redirect()->route('presentations.index')->with('success', 'Presentación actualizada correctamente');
     }
 
     /**

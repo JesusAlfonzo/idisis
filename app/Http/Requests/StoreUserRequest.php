@@ -13,12 +13,21 @@ class StoreUserRequest extends FormRequest
 
     public function rules()
     {
-        return [
+        $userId = $this->route('user');
+        $rules = [
             'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-            'role' => 'required|exists:roles,name',
+            'email' => 'required|email|unique:users,email' . ($userId ? ",{$userId}" : ''),
             'employee_id' => 'required|exists:employees,id',
+            'role_id' => 'required|exists:roles,id',
         ];
+
+        // Solo requerir password al crear
+        if ($this->isMethod('post')) {
+            $rules['password'] = 'required|min:6';
+        } else {
+            $rules['password'] = 'nullable|min:6';
+        }
+
+        return $rules;
     }
 }

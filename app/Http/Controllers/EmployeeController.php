@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
 use App\Models\Area;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -31,23 +32,11 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeRequest $request)
     {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'position' => 'nullable',
-            'area_id' => 'required|exists:areas,id',
-        ]);
-
-        Employee::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'position' => $request->position,
-            'area_id' => $request->area_id,
-            'created_by' => auth()->id(),
-            'updated_by' => auth()->id(),
-        ]);
-
-        return redirect()->route('employees.create')->with('success', 'Empleado registrado correctamente');
+        $data = $request->validated();
+        $data['created_by'] = Auth::id();
+        $data['updated_by'] = Auth::id();
+        Employee::create($data);
+        return redirect()->route('employees.index')->with('success', 'Empleado registrado correctamente');
     }
 
     /**
@@ -63,7 +52,8 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        // Mostrar formulario de edición de empleado
+        $areas = Area::all();
+        return view('employees.edit', compact('employee', 'areas'));
     }
 
     /**
@@ -71,7 +61,10 @@ class EmployeeController extends Controller
      */
     public function update(EmployeeRequest $request, Employee $employee)
     {
-        // Actualizar empleado
+        $data = $request->validated();
+        $data['updated_by'] = Auth::id();
+        $employee->update($data);
+        return redirect()->route('employees.index')->with('success', 'Empleado actualizado correctamente');
     }
 
     /**
@@ -79,6 +72,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        // Eliminar empleado
+        $employee->delete();
+        return redirect()->route('employees.index')->with('success', 'Empleado eliminado correctamente');
     }
 }
