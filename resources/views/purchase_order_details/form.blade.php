@@ -2,7 +2,7 @@
     <label for="purchase_order_id">Orden de Compra</label>
     <select name="purchase_order_id" class="form-control" required>
         <option value="">Seleccione</option>
-        @foreach($purchase_orders as $order)
+        @foreach(isset($purchaseOrders) ? $purchaseOrders : [] as $order)
             <option value="{{ $order->id }}" {{ old('purchase_order_id', $detail->purchase_order_id ?? '') == $order->id ? 'selected' : '' }}>{{ $order->id }}</option>
         @endforeach
     </select>

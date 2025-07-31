@@ -10,7 +10,9 @@
     <form action="{{ route('employees.store') }}" method="POST">
         @csrf
         @include('employees.form', ['employee' => null, 'areas' => $areas])
-        <button type="submit" class="btn btn-primary">Registrar</button>
-        <a href="{{ route('employees.index') }}" class="btn btn-secondary">Cancelar</a>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary px-4">Registrar</button>
+            <a href="{{ route('employees.index') }}" class="btn btn-secondary ms-2 px-4">Cancelar</a>
+        </div>
     </form>
 @endsection

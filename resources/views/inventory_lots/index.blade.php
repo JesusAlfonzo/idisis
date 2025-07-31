@@ -18,6 +18,8 @@
                 <th>Producto</th>
                 <th>Cantidad</th>
                 <th>Fecha de Vencimiento</th>
+                <th>Usos Restantes</th>
+                <th>Kits Completos</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -28,6 +30,20 @@
                     <td>{{ $lot->product->name ?? '' }}</td>
                     <td>{{ $lot->quantity }}</td>
                     <td>{{ $lot->expiration_date }}</td>
+                    <td>
+                        @if($lot->product && $lot->product->is_kit)
+                            {{ $lot->uses_remaining }}
+                        @else
+                            <span class="text-muted">N/A</span>
+                        @endif
+                    </td>
+                    <td>
+                        @if($lot->product && $lot->product->is_kit)
+                            {{ $lot->kitsCompletos() }}
+                        @else
+                            <span class="text-muted">N/A</span>
+                        @endif
+                    </td>
                     <td>
                         <a href="{{ route('inventory_lots.edit', $lot) }}" class="btn btn-warning btn-sm">Editar</a>
                         <form action="{{ route('inventory_lots.destroy', $lot) }}" method="POST" style="display:inline-block">

@@ -10,7 +10,9 @@
     <form action="{{ route('unit_of_measure.store') }}" method="POST">
         @csrf
         @include('unit_of_measure.form', ['unitOfMeasure' => null])
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <a href="{{ route('unit_of_measure.index') }}" class="btn btn-secondary">Cancelar</a>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary px-4">Guardar</button>
+            <a href="{{ route('unit_of_measure.index') }}" class="btn btn-secondary ms-2 px-4">Cancelar</a>
+        </div>
     </form>
 @endsection

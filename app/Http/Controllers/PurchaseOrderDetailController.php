@@ -51,7 +51,9 @@ class PurchaseOrderDetailController extends Controller
     public function edit(string $id)
     {
         $purchaseOrderDetail = PurchaseOrderDetail::findOrFail($id);
-        return view('purchase_order_details.edit', compact('purchaseOrderDetail'));
+        $purchaseOrders = PurchaseOrder::all();
+        $products = Product::all();
+        return view('purchase_order_details.edit', compact('purchaseOrderDetail', 'purchaseOrders', 'products'));
     }
 
     /**

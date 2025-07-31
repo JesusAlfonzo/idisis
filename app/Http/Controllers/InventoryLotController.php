@@ -33,7 +33,13 @@ class InventoryLotController extends Controller
      */
     public function store(InventoryLotRequest $request)
     {
-        InventoryLot::create($request->validated());
+        $data = $request->validated();
+        $product = \App\Models\Product::find($data['product_id']);
+        // Si el producto es kit, inicializar uses_remaining
+        if ($product && $product->is_kit && $product->uses_per_kit > 0) {
+            $data['uses_remaining'] = $data['quantity'] * $product->uses_per_kit;
+        }
+        InventoryLot::create($data);
         return redirect()->route('inventory_lots.index');
     }
 

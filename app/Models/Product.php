@@ -16,6 +16,8 @@ class Product extends Model
         'unit_of_measure_id' => 'integer',
         'supplier_id' => 'integer',
         'price' => 'decimal:2',
+        'is_kit' => 'boolean',
+        'uses_per_kit' => 'integer',
     ];
 
     protected $fillable = [
@@ -28,7 +30,25 @@ class Product extends Model
         'presentation_id',
         'unit_of_measure_id',
         'supplier_id',
+        'is_kit',
+        'uses_per_kit',
     ];
+
+    /**
+     * Indica si el producto es un kit.
+     */
+    public function esKit(): bool
+    {
+        return (bool) $this->is_kit;
+    }
+
+    /**
+     * Devuelve la cantidad de usos por kit, o null si no aplica.
+     */
+    public function usosPorKit(): ?int
+    {
+        return $this->is_kit ? $this->uses_per_kit : null;
+    }
 
     public function brand()
     {

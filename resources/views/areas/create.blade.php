@@ -10,17 +10,9 @@
     <form action="{{ route('areas.store') }}" method="POST">
         @csrf
         @include('areas.form')
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <a href="{{ route('areas.index') }}" class="btn btn-secondary">Cancelar</a>
-    </form>
-@endsection
-@extends('adminlte::page')
-
-@section('content')
-    <h1>Registrar nueva área</h1>
-    <form action="{{ route('areas.store') }}" method="POST">
-        @csrf
-        <input type="text" name="name" placeholder="Nombre del área" required>
-        <button type="submit">Registrar</button>
+        <div class="text-center mt-4 pb-5">
+            <button type="submit" class="btn btn-primary px-5 py-2 mx-2">Guardar</button>
+            <a href="{{ route('areas.index') }}" class="btn btn-secondary px-5 py-2 mx-2">Cancelar</a>
+        </div>
     </form>
 @endsection
